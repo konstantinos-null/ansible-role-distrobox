@@ -10,6 +10,7 @@
   ansible.builtin.package:
     name: podman
     state: present
+  become: true
 
 - name: Install distrobox
   community.general.make:
