@@ -1,0 +1,25 @@
+---
+# tasks file for distrobox_install
+- name: Download distrobox git repository
+  ansible.builtin.git:
+    repo: git@github.com:89luca89/distrobox.git
+    dest: /tmp/distrobox
+
+# Using the ansible.builtin.package as a quick way to ensure the state for most systems
+- name: Ensure podman is installed
+  ansible.builtin.package:
+    name: podman
+    state: present
+
+- name: Install distrobox
+  community.general.make:
+    chdir: /tmp/distrobox
+    target: install
+  tags: install
+
+- name: Uninstall distrobox
+  community.general.make:
+    chdir: /tmp/distrobox
+    target: uninstall
+  tags: uninstall
+
